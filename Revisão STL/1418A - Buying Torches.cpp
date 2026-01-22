@@ -2,28 +2,32 @@
 using namespace std;
 
 int main(){
-    int t; // quantidade de casos
-    int x; // 1 graveto por x gravetos
-    int y; // y gravetos por 1 carvão
-    int k; // quantidade de tochas necessarias
+    unsigned long long int t; // quantidade de casos de teste
+    unsigned long long int x; // em 1 troca, 1 graveto vira x gravetos
+    unsigned long long int y; // y gravetos são necessários para 1 carvão
+    unsigned long long int k; // quantidade de tochas necessárias
 
-    // loop de casos de teste
+    // leitura da quantidade de casos
     cin >> t;
     while(t--){
-        // entrada
+        // entrada dos valores
         cin >> x >> y >> k;
 
-        unsigned long long int q; // quantidade de trocas
-        unsigned long long int s; // quantidade de gravetos
+        unsigned long long int s; // quantidade total de gravetos necessários
+        unsigned long long int q; // quantidade total de trocas
 
-        // y * k é igual a quantidade de gravetos para pegar o carvão
-        // + k - 1 para pegar os gravetos faaltantes para fazer as tochas
-        s = y*k + k - 1;
+        // (y + 1) * k -> y gravetos para o carvão + 1 graveto para a tocha
+        // -1 pois o último graveto já está disponível
+        s = (y + 1) * k - 1;
 
-        // cada troca de gravetos dá x - 1 com isso a solução se da por
-        q = (s / (x - 1)) + k;
+        // cada troca gera (x - 1) gravetos líquidos
+        // + (x - 2) para garantir divisão inteira com arredondamento para cima
+        q = (s + x - 2) / (x - 1);
 
-        // saida
+        // + k trocas necessárias para fabricar as k tochas
+        q += k;
+
+        // saída
         cout << q << endl;
     }
 
